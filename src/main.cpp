@@ -2,13 +2,14 @@
 #include "ofMain.h"
 
 //========================================================================
-int main() {
+int main()
+{
 
-	//Use ofGLFWWindowSettings for more options like multi-monitor fullscreen
+	// Use ofGLFWWindowSettings for more options like multi-monitor fullscreen
 	ofGLWindowSettings settings;
 	settings.setSize(480, 360);
 	// handy that this is a SD compatible resolution, double is HD Ready and triple is Full HD
-	settings.windowMode = OF_WINDOW; //can also be OF_FULLSCREEN
+	settings.windowMode = OF_WINDOW; // can also be OF_FULLSCREEN
 
 	auto window = ofCreateWindow(settings);
 
