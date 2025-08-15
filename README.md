@@ -1,0 +1,3 @@
+# The Fourth Dimension
+
+Zbigniew Rybczyński's Fourth Dimension is a wildly creative and hypnotic piece osetnsibly about the Adam and Eve creation myth but is actually a scultpure made of time. Through an incredibly painstaking method of splicing frames horizontally with razorblades and reconstructing them with tape, each vertical slice one frame offset from the last new shapes and structures appear from time.
