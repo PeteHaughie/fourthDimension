@@ -8,7 +8,8 @@ void ofApp::setup() {
 	ofDisableArbTex();
 	ofSetWindowTitle("Fourth Dimension");
 
-	patterns[0].load("gradient-h.png");
+	// patterns[0].load("gradient-h.png");
+	patterns[0].load("gradient-h-gradual.png");
 	patterns[1].load("gradient-v.png");
 	patterns[2].load("gradient-ramp.png");
 	patterns[3].load("gradient-ramp-inverse.png");
@@ -16,9 +17,10 @@ void ofApp::setup() {
 	patterns[5].load("gradient-dots.png");
 
 	pattern.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+	videoFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 
-	video.load("venus.mov");
-	video.setLoopState(OF_LOOP_NORMAL);
+	video.load("statues.hap.640x480.mov");
+	video.setLoopState(OF_LOOP_PALINDROME);
 	video.play();
 
 	// fill frameBuffer
@@ -36,23 +38,24 @@ void ofApp::setup() {
 	}
 
 	// setup the video input manager
-	videoInputManager.setup(ofGetWidth(), ofGetHeight());
+	// videoInputManager.setup(ofGetWidth(), ofGetHeight());
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	videoInputManager.update();
-	if (videoInputManager.getInput()->isFrameNew()) {
-		ofPixels newFrame = videoInputManager.getInput()->getPixels();
-		frameBuffer.addFrame(newFrame);
-	}
-	// video.update();
-	// if (video.isFrameNew()) {
-	// 	// Get the new frame from the video
-	// 	ofPixels newFrame = video.getPixels();
-	// 	// Add the new frame to the frame buffer
+	// videoInputManager.update();
+	// if (videoInputManager.getInput()->isFrameNew()) {
+	// 	ofPixels newFrame = videoInputManager.getInput()->getPixels();
 	// 	frameBuffer.addFrame(newFrame);
 	// }
+	video.update();
+	if (video.isFrameNew()) {
+		// Get the new frame from the video
+		ofPixels newFrame;
+		videoFbo.readToPixels(newFrame);
+		// Add the new frame to the frame buffer
+		frameBuffer.addFrame(newFrame);
+	}
 }
 
 //--------------------------------------------------------------
@@ -92,9 +95,14 @@ void ofApp::draw() {
 		noiseTex.loadData(noisePixels);
 		noiseTex.draw(0, 0, ofGetWidth(), ofGetHeight());
 	} else {
-		videoInputManager.getInput()->draw(0, 0, ofGetWidth(), ofGetHeight());
+		video.draw(0, 0, ofGetWidth(), ofGetHeight());
+		// videoInputManager.getInput()->draw(0, 0, ofGetWidth(), ofGetHeight());
 	}
 	pattern.end();
+
+	videoFbo.begin();
+	video.draw(0, 0, ofGetWidth(), ofGetHeight());
+	videoFbo.end();
 
 	ofPixels patternPixels;
 	pattern.readToPixels(patternPixels);
@@ -129,8 +137,8 @@ void ofApp::draw() {
 	outputTexture.draw(0, 0, ofGetWidth(), ofGetHeight());
 
 	if (debug) {
-		// video.draw(0, 0, ofGetWidth() / 3, ofGetHeight() / 3);
-		videoInputManager.getInput()->draw(0, 0, ofGetWidth() / 3, ofGetHeight() / 3);
+		video.draw(0, 0, ofGetWidth() / 3, ofGetHeight() / 3);
+		// videoInputManager.getInput()->draw(0, 0, ofGetWidth() / 3, ofGetHeight() / 3);
 		pattern.draw(ofGetWidth() / 3 * 2, 0, ofGetWidth() / 3, ofGetHeight() / 3);
 	}
 }

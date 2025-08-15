@@ -2,3 +2,4 @@ obj
 browse.db*
 *.app
 .DS_Store
+*.dylib

@@ -3,6 +3,7 @@
 #include "FrameBuffer.h"
 #include "VideoInputManager.h"
 #include "ofMain.h"
+#include "ofxHapPlayer.h"
 
 class ofApp : public ofBaseApp {
 
@@ -29,11 +30,12 @@ public:
 private:
 	int bufferLength = 360; // same as height of the window
 	bool debug = false;
-	ofVideoPlayer video;
+	// ofVideoPlayer video;
+	ofxHapPlayer video;
 	VideoInputManager videoInputManager;
 	ofShader shader;
 	FrameBuffer frameBuffer;
-	ofFbo pattern;
+	ofFbo pattern, videoFbo;
 	float noiseScale = 1.0;
 	ofImage patterns[6]; // 6 different patterns
 	int temporalPatternIndex = 0;
