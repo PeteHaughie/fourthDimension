@@ -28,7 +28,7 @@ public:
 	void gotMessage(ofMessage msg) override;
 
 private:
-	int bufferLength = 360; // same as height of the window
+	int bufferLength = 255; // 360 would be the same as height of the window but there are only 255 steps available in RGB space
 	bool debug = false;
 	// ofVideoPlayer video;
 	ofxHapPlayer video;

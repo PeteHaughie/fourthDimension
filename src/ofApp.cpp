@@ -9,7 +9,8 @@ void ofApp::setup() {
 	ofSetWindowTitle("Fourth Dimension");
 
 	// patterns[0].load("gradient-h.png");
-	patterns[0].load("gradient-h-gradual.png");
+	// patterns[0].load("gradient-h-gradual.png");
+	patterns[0].load("gradient-h-extra-gradual.png");
 	patterns[1].load("gradient-v.png");
 	patterns[2].load("gradient-ramp.png");
 	patterns[3].load("gradient-ramp-inverse.png");
@@ -157,6 +158,9 @@ void ofApp::keyPressed(int key) {
 	}
 	if (key == 'd') {
 		debug = !debug;
+	}
+	if (key == 's') {
+		ofSaveFrame("screenshot-####.png");
 	}
 	if (key == '1') {
 		noiseScale = 0.5; // Smoother noise
